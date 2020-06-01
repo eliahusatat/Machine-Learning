@@ -1,5 +1,5 @@
 import doctest
-
+import numpy as np
 
 class Point():
     """
@@ -49,17 +49,17 @@ class Point():
                 else:
                     self.gender = -1
                 self.pulse = float(arr[2])
-                self.weight = 1
+                self.weight = np.longdouble(1)
             else: # if its point = copy constructor
                 self.temperature = point.temperature
                 self.gender = point.gender
                 self.pulse = point.pulse
-                self.weight = 1
+                self.weight = np.longdouble(1)
         else: # got  temperature and pulse - and built the point
             self.temperature = point
             self.gender = gender
             self.pulse = pulse
-            self.weight = 1
+            self.weight = np.longdouble(1)
 
 
 

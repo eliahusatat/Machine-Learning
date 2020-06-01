@@ -53,6 +53,9 @@ def rectangle_rate_error(rectangle , points):
     for p in points:
         if (rectangle.is_right(p) == False):
             rate += p.weight
+            if(p.weight == 0):
+                print("the w is : {}".format(p.weight))
+
     return rate
 
 
@@ -106,10 +109,10 @@ def best_rectangle(points):
 
 
 def adaboost(points,r):
-    w = 1/(len(points))
+    w = np.longdouble(1/(len(points)))
     for p in points:
         p.weight = w
-    at = 0.5
+    at = np.longdouble(0.5)
     Hs = []
     As = []
     for i in range(0,r):
@@ -117,7 +120,10 @@ def adaboost(points,r):
         ht = best_rectangle(points)
         Hs.append(ht)
         et = rectangle_rate_error(ht , points)
-        at = 0.5*(np.log(1 - et)/et)
+        if(et == 0):
+            print("the et:{} ".format(et))
+        at = 0.5*(np.log((1 - et)/et))
+        print("at : {}".format(at))
         As.append(at)
         for p in points:
             if(ht.is_right(p)):
@@ -143,7 +149,7 @@ def run(points , r , times):
             test = []
             for p in points:
                 rand = random.randint(0, 1)
-                if (len(learn) >= 65):
+                if (len(learn) >= 35):
                     test.append(p)
                 else:
                     if (len(test) >= 65):
