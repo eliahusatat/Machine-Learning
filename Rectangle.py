@@ -23,7 +23,7 @@ class Rectangle():
 
 
     """
-    def __init__(self, tp1, tp2, tp3 = None , tp4 = None):
+    def __init__(self, tp1 , tp2, tp3 = None , tp4 = None):
         if(tp3 == None):
             big_temperature = max(tp1.temperature, tp2.temperature)
             small_temperature = min(tp1.temperature, tp2.temperature)
