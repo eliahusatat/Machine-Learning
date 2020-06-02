@@ -11,7 +11,7 @@ def rectangle_rate_error(rectangle , points):
     """
     :param rectangle:  Rectangle
     :param points: list of Point
-    :return: the number of point that in the Rectangle
+    :return:  the number of point that in the Rectangle
     >>> points = []
     >>> p1 = Point(1 , 1 ,1)
     >>> points.append(p1)
