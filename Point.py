@@ -12,7 +12,7 @@ class Point():
             self.gender = -1
         self.pulse = float(arr[2])
         self.weight = 0
-
+ 
 
     def __init__(self, point):
         self.temperature = point.temperature
