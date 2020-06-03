@@ -49,6 +49,24 @@ def rectangle_rate_error(rectangle , points):
     >>> r1 = Rectangle((p1,p2))
     >>> print(rectangle_rate_error(r1 , points))
     2.0
+    >>> points = []
+    >>> p1 = Point(1 , 1 ,1)
+    >>> points.append(p1)
+    >>> p2 = Point(4, 4,1)
+    >>> points.append(p2)
+    >>> p3 = Point(5, 2,-1)
+    >>> points.append(p3)
+    >>> p4 = Point(1, 2,1)
+    >>> points.append(p4)
+    >>> p5 = Point(2, 2,1)
+    >>> points.append(p5)
+    >>> p6 = Point(3, 2,-1)
+    >>> points.append(p6)
+    >>> p7 = Point(3, 6,1)
+    >>> points.append(p7)
+    >>> r =  Rectangle((p1,Point(4, 6,1)))
+    >>> print(rectangle_rate_error(r , points))
+    1.0
     """
     rate = 0
     for p in points:
@@ -79,10 +97,14 @@ def best_rectangle(points):
     >>> points.append(p6)
     >>> p7 = Point(3, 6,1)
     >>> points.append(p7)
+    >>> p8 = Point(4, 6, 1)
+    >>> points.append(p8)
     >>> r =  Rectangle((p1,Point(4, 6,1)))
     >>> ans = best_rectangle(points)
     >>> print(r == ans)
     True
+    >>> print(rectangle_rate_error(ans,points))
+    1.0
     """
     best = Rectangle((points[0],points[1]))
     best_rate = rectangle_rate_error(best , points)
@@ -92,28 +114,21 @@ def best_rectangle(points):
         if(temp_rate < best_rate):
             best = temp
             best_rate = temp_rate
-    """
-    for p in itertools.combinations(points, 3):
-        temp = Rectangle(p)
-        temp_rate = rectangle_rate_error(temp,points)
-        if(temp_rate < best_rate):
-            best = temp
-            best_rate = temp_rate
-    for p in itertools.combinations(points, 4):
-        temp = Rectangle(p)
-        temp_rate = rectangle_rate_error(temp, points)
-        if (temp_rate < best_rate):
-            best = temp
-            best_rate = temp_rate
-    """
     return best
 
 
 def adaboost(points,r):
-    w = np.longdouble(1/(len(points)))
+    """
+    the adaboost algorithm
+    :param points: list of point
+    :param r:  int
+    :return: tuple (list of rectangle , list of alpha , r)
+    """
+    n = len(points)
+    w = 1 / n
     for p in points:
         p.weight = w
-    at = np.longdouble(0.5)
+    at = 0.5
     Hs = []
     As = []
     for i in range(0,r):
@@ -121,16 +136,17 @@ def adaboost(points,r):
         ht = best_rectangle(points)
         Hs.append(ht)
         et = rectangle_rate_error(ht , points)
-        #if(et == 0):
-        #print("the et:{} ".format(et))
-        at = 0.5*(np.log((1 - et)/et))
-        #print("at : {}".format(at))
+        if(et>= 0.5):
+            print("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print("et = {}".format(et))
+        num = (1 - et)/et
+        at = 0.5*(np.log(num))
         As.append(at)
         for p in points:
-            if(ht.is_right(p)):
-                p.weight = p.weight *(  math.e ** (at))
+            if(ht.is_right(p) == False):
+                p.weight = p.weight *(math.e ** (at))
             else:
-                p.weight = p.weight *(  math.e ** (-at))
+                p.weight = p.weight *(math.e ** (-at))
             sum += p.weight
         for p in points:
             p.weight = p.weight/sum
@@ -142,6 +158,12 @@ def adaboost(points,r):
 
 
 def run(points , r , times):
+    """
+    :param points: list of Points
+    :param r: int
+    :param times: int
+    :return: run adaboost for each i from(1,r) (times) times
+    """
     start = datetime.datetime.now()
     for i in range(1, r+1):
         multi_sum = 0
@@ -163,10 +185,8 @@ def run(points , r , times):
             ans = adaboost(learn, i)
             rate = 0
             for p in test:
-                #print(ans.is_right(p))
                 if ans.is_right(p):
                     rate += 1
-            #print("the success : {}".format((rate / len(test) * 100)))
             multi_sum += (rate / len(test) * 100)
         multi_sum /= times
         print("the rate of success for {} is {} percent ".format(i, multi_sum))
@@ -174,6 +194,7 @@ def run(points , r , times):
     print("Total time for {} points and {} times, from 1 to {} is :{}".format(len(points), times , r , end - start))
 
 if __name__ == '__main__':
+
 
     (failures, tests) = doctest.testmod(report=True)
     print("{} failures, {} tests".format(failures, tests))
@@ -185,6 +206,7 @@ if __name__ == '__main__':
         points.append(Point(x))
 
     run(points , 8 , 100)
+
 
 
 

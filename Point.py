@@ -2,36 +2,16 @@ import doctest
 import numpy as np
 
 class Point():
-    """
-    def __init__(self, line):
-        arr = line.split()
-        self.temperature  = float(arr[0])
-        if(arr[1]=="1"):
-            self.gender = int(arr[1])
-        else:
-            self.gender = -1
-        self.pulse = float(arr[2])
-        self.weight = 0
- 
-
-    def __init__(self, point):
-        self.temperature = point.temperature
-        self.gender = point.gender
-        self.pulse = point.pulse
-        self.weight = 0
-    
-    def __init__(self, temperature ,pulse):
-        self.temperature  = temperature
-        self.gender = 0
-        self.pulse = pulse
-        self.weight = 0
-    """
 
     def __init__(self, point ,pulse = None ,gender = None):
         """
-        :param point:
-        :param pulse:
-        :param gender:
+        A constructor if its got one param (Point or string)
+        used as copy constructor or string constructor
+        if its got 3 param - regular constructor
+        :param point: Point or string or int ( = temperature)
+        :param pulse: int ( = pulse)
+        :param gender: int ( = gender)
+        checked!
         >>> p = Point(3, 2 ,-1)
         >>> p1 = Point(p)
         >>> print(p1 == p)
@@ -41,7 +21,7 @@ class Point():
         True
         """
         if(pulse == None): # if its got only one param
-            if isinstance(point ,str): # if its line = string from file
+            if isinstance(point ,str): # if its line = string from file string constructor
                 arr = point.split()
                 self.temperature = float(arr[0])
                 if (arr[1] == "1"):
@@ -49,17 +29,21 @@ class Point():
                 else:
                     self.gender = -1
                 self.pulse = float(arr[2])
-                self.weight = np.longdouble(1)
+                #self.weight = np.longdouble(1)
+                self.weight = 1.0
             else: # if its point = copy constructor
                 self.temperature = point.temperature
                 self.gender = point.gender
                 self.pulse = point.pulse
-                self.weight = np.longdouble(1)
+                #self.weight = np.longdouble(1)
+                self.weight = 1.0
+
         else: # got  temperature and pulse - and built the point
             self.temperature = point
             self.gender = gender
             self.pulse = pulse
-            self.weight = np.longdouble(1)
+            #self.weight = np.longdouble(1)
+            self.weight = 1.0
 
 
 
