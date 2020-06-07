@@ -1,3 +1,12 @@
+"""
+Eliahu Satat - 204395644
+Daniel Abergel - 315660712
+"""
+
+
+
+
+
 from Point import Point
 from Rectangle import Rectangle
 from Circle import Circle
@@ -265,6 +274,7 @@ the rate of success for 7 is 82.18461538461536 percent
 the rate of success for 8 is 81.5076923076923 percent 
 Total time for 130 points and 50 times, from 1 to 8 is :0:04:58.633063
 
+there is overfitting on rectangle !
 
 circle on test:
 the rate of success for 1 is 54.24615384615387 percent 
@@ -289,7 +299,7 @@ the rate of success for 7 is 76.64615384615385 percent
 the rate of success for 8 is 73.72307692307695 percent 
 Total time for 130 points and 50 times, from 1 to 8 is :0:09:12.557027
 
-
+there is overfitting on circle !
     """
 
 

@@ -1,3 +1,7 @@
+"""
+Eliahu Satat - 204395644
+Daniel Abergel - 315660712
+"""
 import doctest
 import numpy as np
 import math

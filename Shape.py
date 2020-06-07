@@ -1,4 +1,7 @@
-
+"""
+Eliahu Satat - 204395644
+Daniel Abergel - 315660712
+"""
 
 class Shape():
     """

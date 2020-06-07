@@ -1,3 +1,7 @@
+"""
+Eliahu Satat - 204395644
+Daniel Abergel - 315660712
+"""
 from Point import Point
 import doctest
 from Shape import Shape
