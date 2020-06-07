@@ -248,7 +248,7 @@ if __name__ == '__main__':
     for x in f:
         points.append(Point(x))
 
-    run(points , 8 , 2 , "rectanle")
+    run(points , 8 , 100 , "rectanle")
     """
     
 rectangle on test:
@@ -260,7 +260,7 @@ the rate of success for 5 is 54.061538461538454 percent
 the rate of success for 6 is 53.69230769230769 percent 
 the rate of success for 7 is 53.87692307692308 percent 
 the rate of success for 8 is 52.86153846153847 percent 
-Total time for 130 points and 50 times, from 1 to 8 is :0:04:53.256524
+Total time for 130 points and 100 times, from 1 to 8 is :0:04:53.256524
 
 
 rectangle on train:
@@ -272,7 +272,7 @@ the rate of success for 5 is 80.00000000000001 percent
 the rate of success for 6 is 77.50769230769231 percent 
 the rate of success for 7 is 82.18461538461536 percent 
 the rate of success for 8 is 81.5076923076923 percent 
-Total time for 130 points and 50 times, from 1 to 8 is :0:04:58.633063
+Total time for 130 points and 100 times, from 1 to 8 is :0:04:58.633063
 
 there is overfitting on rectangle !
 
@@ -285,7 +285,7 @@ the rate of success for 5 is 52.86153846153849 percent
 the rate of success for 6 is 53.076923076923094 percent 
 the rate of success for 7 is 54.061538461538454 percent 
 the rate of success for 8 is 54.18461538461539 percent 
-Total time for 130 points and 50 times, from 1 to 8 is :0:09:09.288128
+Total time for 130 points and 100 times, from 1 to 8 is :0:09:09.288128
 
 
 circle on train:
@@ -297,7 +297,7 @@ the rate of success for 5 is 73.01538461538462 percent
 the rate of success for 6 is 72.46153846153847 percent 
 the rate of success for 7 is 76.64615384615385 percent 
 the rate of success for 8 is 73.72307692307695 percent 
-Total time for 130 points and 50 times, from 1 to 8 is :0:09:12.557027
+Total time for 130 points and 100 times, from 1 to 8 is :0:09:12.557027
 
 there is overfitting on circle !
     """
