@@ -1,13 +1,15 @@
 from Point import Point
 import doctest
+from Shape import Shape
 
+class Rectangle(Shape):
 
-class Rectangle():
-
-    def __init__(self,points , internal = True):
+    def __init__(self,points , internal = True ,  center_first = True):
         """
         constructor - got 2,3,4 Points and built  Rectangle
         :param points: tuple of Points
+        :param internal: boolean - if its rectangle wuth inside + or -
+        :param center_first: only for circle ..
         >>> p = Point(3, 2 ,-1)
         >>> p1 = Point(4, 5 ,-1)
         >>> r = Rectangle((p,p1))

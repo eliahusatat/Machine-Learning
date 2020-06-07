@@ -1,5 +1,6 @@
 import doctest
 import numpy as np
+import math
 
 class Point():
 
@@ -45,6 +46,9 @@ class Point():
             #self.weight = np.longdouble(1)
             self.weight = 1.0
 
+
+    def distance(self , p):
+        return math.sqrt((self.temperature - p.temperature)**2 + (self.pulse - p.pulse)**2)
 
 
     def __str__(self):

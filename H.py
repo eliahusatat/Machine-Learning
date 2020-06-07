@@ -4,10 +4,11 @@ from Rectangle import Rectangle
 
 
 class H():
-    def __init__(self, ht, at, r):
+    def __init__(self, ht, at, r , shape ="rectangle"):
         self.ht = ht
         self.at = at
         self.r = r
+        self.shape = shape
 
     def sing(self , p):
         """
@@ -49,20 +50,25 @@ class H():
         -1
         """
         sum = 0
-        for i in range(0 , self.r):
+        if(self.shape == "rectangle"): # for rectangle
+            for i in range(0, self.r):
 
-            if(self.ht[i].internal):
+                if (self.ht[i].internal):
+                    if (self.ht[i].is_inside(p)):
+                        sum += self.at[i]
+                    else:
+                        sum -= self.at[i]
+                else:
+                    if (self.ht[i].is_inside(p)):
+                        sum -= self.at[i]
+                    else:
+                        sum += self.at[i]
+        else:                             # for circle
+            for i in range(0, self.r):
                 if (self.ht[i].is_inside(p)):
                     sum += self.at[i]
                 else:
                     sum -= self.at[i]
-            else:
-                if (self.ht[i].is_inside(p)):
-                    sum -= self.at[i]
-                else:
-                    sum += self.at[i]
-
-
         if(sum >= 0): return 1
         else: return -1
 
