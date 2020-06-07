@@ -50,9 +50,19 @@ class H():
         """
         sum = 0
         for i in range(0 , self.r):
-            if(self.ht[i].is_inside(p)):
-                sum += self.at[i]
-            else: sum -= self.at[i]
+
+            if(self.ht[i].internal):
+                if (self.ht[i].is_inside(p)):
+                    sum += self.at[i]
+                else:
+                    sum -= self.at[i]
+            else:
+                if (self.ht[i].is_inside(p)):
+                    sum -= self.at[i]
+                else:
+                    sum += self.at[i]
+
+
         if(sum >= 0): return 1
         else: return -1
 

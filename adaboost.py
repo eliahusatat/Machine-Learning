@@ -74,8 +74,10 @@ def rectangle_rate_error(rectangle , points):
             rate += p.weight
             if(p.weight == 0):
                 print("the w is : {}".format(p.weight))
-
-    return rate
+    if(rate == 0):
+        return 0.00000000001 # In order to be division by zero
+    else:
+        return rate
 
 
 def best_rectangle(points):
@@ -99,21 +101,29 @@ def best_rectangle(points):
     >>> points.append(p7)
     >>> p8 = Point(4, 6, 1)
     >>> points.append(p8)
-    >>> r =  Rectangle((p1,Point(4, 6,1)))
+    >>> r =  Rectangle((Point(3, 2,1),Point(5, 2,1)),False)
     >>> ans = best_rectangle(points)
     >>> print(r == ans)
     True
     >>> print(rectangle_rate_error(ans,points))
-    1.0
+    1e-11
     """
     best = Rectangle((points[0],points[1]))
     best_rate = rectangle_rate_error(best , points)
     for p in itertools.combinations(points, 2):
-        temp = Rectangle(p)
+        temp = Rectangle(p,True)
         temp_rate = rectangle_rate_error(temp,points)
         if(temp_rate < best_rate):
             best = temp
             best_rate = temp_rate
+
+    for p in itertools.combinations(points, 2):
+        temp = Rectangle(p,False)
+        temp_rate = rectangle_rate_error(temp,points)
+        if(temp_rate < best_rate):
+            best = temp
+            best_rate = temp_rate
+
     return best
 
 
@@ -138,6 +148,9 @@ def adaboost(points,r):
         et = rectangle_rate_error(ht , points)
         if(et>= 0.5):
             print("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+            print("et = {}".format(et))
+        if(et == 0):
+            print("et == 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
             print("et = {}".format(et))
         num = (1 - et)/et
         at = 0.5*(np.log(num))
@@ -184,7 +197,7 @@ def run(points , r , times):
                             learn.append(p)
             ans = adaboost(learn, i)
             rate = 0
-            for p in test:
+            for p in learn:
                 if ans.is_right(p):
                     rate += 1
             multi_sum += (rate / len(test) * 100)
@@ -206,6 +219,18 @@ if __name__ == '__main__':
         points.append(Point(x))
 
     run(points , 8 , 100)
+    """
+    the rate of success for 1 is 50.46153846153847 percent 
+   the rate of success for 2 is 51.10769230769231 percent 
+the rate of success for 3 is 52.67692307692309 percent 
+the rate of success for 4 is 51.75384615384617 percent 
+the rate of success for 5 is 54.061538461538454 percent 
+the rate of success for 6 is 53.69230769230769 percent 
+the rate of success for 7 is 53.87692307692308 percent 
+the rate of success for 8 is 52.86153846153847 percent 
+Total time for 130 points and 50 times, from 1 to 8 is :0:04:53.256524
+    """
+
 
 
 

@@ -4,7 +4,7 @@ import doctest
 
 class Rectangle():
 
-    def __init__(self,points):
+    def __init__(self,points , internal = True):
         """
         constructor - got 2,3,4 Points and built  Rectangle
         :param points: tuple of Points
@@ -20,6 +20,10 @@ class Rectangle():
         >>> print(r.small_y)
         2
         """
+        if(internal):
+            self.internal = True
+        else:
+            self.internal = False
         if((not(len(points) == 2))and(not (len(points) == 3))and(not (len(points) == 4))): raise Exception('only 2,3,4 is point is alow!')
         else:
             if (len(points) == 2):
@@ -72,7 +76,10 @@ class Rectangle():
         >>> print(r.is_inside(Point(69, 90)))
         True
         """
-        return (p.temperature >= self.small_x)and(p.temperature <= self.big_x)and(p.pulse >= self.small_y)and(p.pulse <= self.big_y)
+        return (p.temperature >= self.small_x) and (p.temperature <= self.big_x) and (p.pulse >= self.small_y) and ( p.pulse <= self.big_y)
+
+
+
 
     def is_right(self, p):
         """
@@ -109,14 +116,22 @@ class Rectangle():
         >>> print(r.is_right(Point(69, 90, -1)))
         False
         """
-        if(self.is_inside(p)):
-            return (p.gender == 1)
+        if(self.internal):
+            if (self.is_inside(p)):
+                return (p.gender == 1)
+            else:
+                return (p.gender == -1)
         else:
-            return (p.gender == -1)
+            if (self.is_inside(p)):
+                return (p.gender == -1)
+            else:
+                return (p.gender == 1)
+
+
 
 
     def __str__(self):
-        return 'the rectangle is :\n {}\n , {}\n , {}\n , {}'.format(self.big_x , self.small_x ,  self.big_y , self.small_y)
+        return 'the rectangle is :\n {}\n , {}\n , {}\n , {}\n , is internal: {}'.format(self.big_x , self.small_x ,  self.big_y , self.small_y,self.internal)
 
     def __eq__(self, other):
         """
@@ -135,7 +150,7 @@ class Rectangle():
         >>> print(r1 == r2)
         True
         """
-        return (self.big_x == other.big_x)and(self.small_x == other.small_x)and(self.big_y == other.big_y)and(self.small_y == other.small_y)
+        return (self.big_x == other.big_x)and(self.small_x == other.small_x)and(self.big_y == other.big_y)and(self.small_y == other.small_y)and(self.internal == other.internal)
 
 
 if __name__ == '__main__':
