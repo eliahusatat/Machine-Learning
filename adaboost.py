@@ -175,12 +175,6 @@ def adaboost(points,r , shape = "rectangle"):
         ht = best_shape(points , shape)
         Hs.append(ht)
         et = shape_rate_error(ht, points)
-        if(et>= 0.5):
-            print("error!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print("et = {}".format(et))
-        if(et == 0):
-            print("et == 0!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-            print("et = {}".format(et))
         num = (1 - et)/et
         at = 0.5*(np.log(num))
         As.append(at)
