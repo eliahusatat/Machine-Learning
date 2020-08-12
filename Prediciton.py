@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 #%matplotlib inline
 import nltk
 
-#nltk.download('stopwords')
+nltk.download('stopwords')
 plt.show()
 import numpy as np
 pd.set_option('display.max_columns', None)
@@ -224,3 +224,102 @@ Model_Name.append('Logistic_Regression')
 Model_Score.append(round(roc_auc_score(y_test, log_reg_pred), 4))
 """
 """
+knn = KNeighborsClassifier()
+k_range = list(np.arange(2, 23, 2))
+param_grid_knn = dict(n_neighbors = k_range)
+print (param_grid_knn)
+
+grid_knn = GridSearchCV(knn, param_grid_knn, cv = 10, scoring = 'roc_auc', n_jobs = -1, verbose = 1)
+
+
+grid_knn.fit(X_train, y_train)
+
+grid_knn.best_score_
+
+
+grid_knn.best_params_
+
+knn_pred = grid_knn.predict(X_test)
+
+print (roc_auc_score(y_test, knn_pred))
+print (classification_report(y_test, knn_pred))
+
+
+Model_Name.append('KNN')
+Model_Score.append(round(roc_auc_score(y_test, knn_pred), 4))
+
+svc = SVC()
+kernel = ['linear', 'rbf']
+param_grid_knn = dict(kernel = kernel)
+print (param_grid_knn)
+
+
+grid_svc = GridSearchCV(svc, param_grid_knn, cv = 10, scoring = 'roc_auc', n_jobs = -1, verbose = 2)
+
+grid_svc.fit(X_train, y_train)
+
+grid_svc.best_score_
+
+grid_svc.best_params_
+
+
+svc_pred = grid_svc.predict(X_test)
+
+print (roc_auc_score(y_test, svc_pred))
+print (classification_report(y_test, svc_pred))
+
+Model_Name.append('SVC')
+Model_Score.append(round(roc_auc_score(y_test, svc_pred), 4))
+
+rf = RandomForestClassifier()
+n_estimators_range = [1, 2, 4, 8, 16, 32, 64, 100, 200]
+param_grid_rf = dict(n_estimators = n_estimators_range)
+grid_rf = GridSearchCV(rf, param_grid_rf, cv = 10, scoring = 'roc_auc', n_jobs = -1, verbose = 1)
+
+
+grid_rf.fit(X_train, y_train)
+print (grid_rf.best_score_)
+print (grid_rf.best_params_)
+
+rf_pred = grid_rf.predict(X_test)
+print (roc_auc_score(y_test, rf_pred))
+print (classification_report(y_test, rf_pred))
+
+
+Model_Name.append('Random_Forest')
+Model_Score.append(round(roc_auc_score(y_test, rf_pred), 4))
+
+mlp = MLPClassifier(solver = 'sgd', activation = 'relu', hidden_layer_sizes = (100, 50, 30), max_iter = 1000)
+
+mlp.fit(X_train, y_train)
+
+
+mlp_pred = mlp.predict(X_test)
+print (roc_auc_score(y_test, mlp_pred))
+print (classification_report(y_test, mlp_pred))
+
+Model_Name.append('MLP-NN (sgd)')
+Model_Score.append(round(roc_auc_score(y_test, mlp_pred), 4))
+
+mlp = MLPClassifier(solver = 'adam', activation = 'relu', hidden_layer_sizes = (100, 50, 30), max_iter = 1000)
+
+mlp.fit(X_train, y_train)
+
+
+mlp_pred = mlp.predict(X_test)
+print (roc_auc_score(y_test, mlp_pred))
+print (classification_report(y_test, mlp_pred))
+
+Model_Name.append('MLP-NN (adam)')
+Model_Score.append(round(roc_auc_score(y_test, mlp_pred), 4))
+
+
+plt.figure(figsize = (15, 10))
+plt.plot(Model_Name,Model_Score, marker = 'o', color = 'red')
+plt.title('Comparison of different models')
+plt.xlabel('Models')
+plt.ylabel('ROC-AUC score')
+plt.ylim(0.5, 1.0)
+plt.grid()
+plt.savefig('Model_compare.jpeg')
+plt.show()
