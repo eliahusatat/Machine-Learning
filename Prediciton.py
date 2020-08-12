@@ -289,29 +289,6 @@ print (classification_report(y_test, rf_pred))
 Model_Name.append('Random_Forest')
 Model_Score.append(round(roc_auc_score(y_test, rf_pred), 4))
 
-mlp = MLPClassifier(solver = 'sgd', activation = 'relu', hidden_layer_sizes = (100, 50, 30), max_iter = 1000)
-
-mlp.fit(X_train, y_train)
-
-
-mlp_pred = mlp.predict(X_test)
-print (roc_auc_score(y_test, mlp_pred))
-print (classification_report(y_test, mlp_pred))
-
-Model_Name.append('MLP-NN (sgd)')
-Model_Score.append(round(roc_auc_score(y_test, mlp_pred), 4))
-
-mlp = MLPClassifier(solver = 'adam', activation = 'relu', hidden_layer_sizes = (100, 50, 30), max_iter = 1000)
-
-mlp.fit(X_train, y_train)
-
-
-mlp_pred = mlp.predict(X_test)
-print (roc_auc_score(y_test, mlp_pred))
-print (classification_report(y_test, mlp_pred))
-
-Model_Name.append('MLP-NN (adam)')
-Model_Score.append(round(roc_auc_score(y_test, mlp_pred), 4))
 
 
 plt.figure(figsize = (15, 10))
